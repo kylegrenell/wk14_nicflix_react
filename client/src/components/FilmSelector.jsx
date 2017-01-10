@@ -16,6 +16,7 @@ var FilmSelector = React.createClass({
       value={this.state.selectedIndex}
       onChange={this.handleChange}
       >
+      <option>Select Nic Flick</option>
       {options}
       </select>
     );

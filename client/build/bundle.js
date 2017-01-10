@@ -19842,6 +19842,11 @@
 	        value: this.state.selectedIndex,
 	        onChange: this.handleChange
 	      },
+	      React.createElement(
+	        "option",
+	        null,
+	        "Select Nic Flick"
+	      ),
 	      options
 	    );
 	  },
