@@ -49,10 +49,10 @@
 	var React = __webpack_require__(1);
 	var ReactDOM = __webpack_require__(158);
 	
-	var FilmContainer = __webpack_require__(159);
+	var ItunesContainer = __webpack_require__(159);
 	
 	window.onload = function () {
-	  ReactDOM.render(React.createElement(FilmContainer, null), document.getElementById('app'));
+	  ReactDOM.render(React.createElement(ItunesContainer, null), document.getElementById('app'));
 	};
 
 /***/ },
@@ -19756,58 +19756,60 @@
 	'use strict';
 	
 	var React = __webpack_require__(1);
-	var FilmSelector = __webpack_require__(160);
-	var FilmImage = __webpack_require__(161);
 	
-	var FilmContainer = React.createClass({
-	  displayName: 'FilmContainer',
+	var SongList = __webpack_require__(160);
+	
+	var ItunesContainer = React.createClass({
+	  displayName: 'ItunesContainer',
+	
 	
 	  getInitialState: function getInitialState() {
-	    return {
-	      films: [],
-	      image: null
+	    return { albums: []
 	    };
 	  },
 	
 	  componentDidMount: function componentDidMount() {
-	    var url = "http://netflixroulette.net/api/api.php?actor=Nicolas%20Cage";
+	    var url = "https://itunes.apple.com/gb/rss/topsongs/limit=200/json";
 	    var request = new XMLHttpRequest();
 	    request.open('GET', url);
 	    request.onload = function () {
-	      var data = JSON.parse(request.responseText);
 	      this.setState({
-	        films: data
+	        data: JSON.parse(request.responseText)
 	      });
 	    }.bind(this);
 	    request.send(null);
 	  },
-	
-	
 	  render: function render() {
-	    return React.createElement(
-	      'div',
-	      { className: 'film-box' },
-	      React.createElement(
-	        'h2',
-	        null,
-	        ' NicFlix '
-	      ),
-	      React.createElement(FilmSelector, {
-	        films: this.state.films,
-	        selectFilm: this.setFilm
-	      }),
-	      React.createElement(FilmImage, {
-	        image: this.state.image
-	      })
-	    );
-	  },
 	
-	  setFilm: function setFilm(film) {
-	    this.setState({ image: film });
+	    if (this.state.data) {
+	      var options = this.state.data.feed.entry.map(function (songData, index) {
+	        return React.createElement(SongList, {
+	          key: index,
+	          songData: songData
+	        });
+	      });
+	
+	      return React.createElement(
+	        'div',
+	        { className: 'itunes' },
+	        React.createElement(
+	          'h1',
+	          null,
+	          'A big list of not so good songs....'
+	        ),
+	        options
+	      );
+	    } else {
+	      return React.createElement(
+	        'h1',
+	        null,
+	        'nae working mate'
+	      );
+	    }
 	  }
 	});
 	
-	module.exports = FilmContainer;
+	module.exports = ItunesContainer;
 
 /***/ },
 /* 160 */
@@ -19817,94 +19819,34 @@
 	
 	var React = __webpack_require__(1);
 	
-	var FilmSelector = React.createClass({
-	  displayName: "FilmSelector",
+	var SongList = React.createClass({
+	  displayName: "SongList",
 	
-	  getInitialState: function getInitialState() {
-	    return { selectedIndex: undefined };
-	  },
 	
 	  render: function render() {
-	    var options = this.props.films.map(function (film, index) {
-	      return React.createElement(
-	        "option",
-	        { value: index, key: index },
-	        " ",
-	        film.show_title,
-	        " "
-	      );
-	    });
-	
 	    return React.createElement(
-	      "select",
-	      {
-	        id: "films",
-	        value: this.state.selectedIndex,
-	        onChange: this.handleChange
-	      },
+	      "div",
+	      null,
+	      React.createElement("img", {
+	        className: "Top20Image",
+	        src: this.props.songData["im:image"][2].label
+	      }),
 	      React.createElement(
-	        "option",
+	        "p",
 	        null,
-	        "Select Nic Flick"
+	        this.props.songData.title.label
 	      ),
-	      options
+	      React.createElement(
+	        "p",
+	        null,
+	        this.props.songData["im:price"].label
+	      )
 	    );
-	  },
-	
-	  handleChange: function handleChange(event) {
-	    var newIndex = parseInt(event.target.value);
-	    this.setState({ selectedIndex: newIndex });
-	    var film = this.props.films[newIndex];
-	    this.props.selectFilm(film);
 	  }
+	
 	});
 	
-	module.exports = FilmSelector;
-
-/***/ },
-/* 161 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var React = __webpack_require__(1);
-	
-	var FilmImage = function FilmImage(props) {
-	  if (!props.image) {
-	    return React.createElement(
-	      'h4',
-	      null,
-	      ' Nae Nic here.'
-	    );
-	  }
-	  return React.createElement(
-	    'div',
-	    { className: 'film-image' },
-	    React.createElement(
-	      'p',
-	      null,
-	      props.image.summary
-	    ),
-	    React.createElement(
-	      'p',
-	      null,
-	      'Current rating: ',
-	      props.image.rating
-	    ),
-	    React.createElement('img', { src: props.image.poster }),
-	    React.createElement(
-	      'a',
-	      { href: 'http://i.imgur.com/pwsKLTw.jpg' },
-	      React.createElement(
-	        'button',
-	        null,
-	        'click nic'
-	      )
-	    )
-	  );
-	};
-	
-	module.exports = FilmImage;
+	module.exports = SongList;
 
 /***/ }
 /******/ ]);

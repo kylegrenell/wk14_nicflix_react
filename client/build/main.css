@@ -1,28 +1,12 @@
-@font-face { font-family: Pacifico; src: url('Pacifico.ttf'); } 
-
 body{
-  font-family: Verdana;
+  background-color: #white;
+  color: #000;
+  text-align: center;
 }
 
-h2{
-  font-family: Pacifico;
-  font-size: 80px;
-  padding: 0px;
-} 
-
-h4{
-  font-family: Pacifico;
-  font-size: 24px;
-}
-
-.film-image{
-  font-size: 14px;
-  font-family: Helvetica;
-}
-
-.counter-box, .film-box{
-  border: 2px solid pink;
-  background-color: #fee;
+.itunes{
+  border: 2px solid seagreen;
+  width: 400px;
   border-radius: 5px;
   padding: 10px;
   margin: 5px auto;
@@ -31,46 +15,18 @@ h4{
   text-align: center;
 }
 
-button{
-  padding: 20px;
-  width: 150px;
-  border-radius: 10px;
+h1 {
+  font-family: helvetica;
   font-size: 20px;
-  background-color: pink;
+ /* text-shadow: 3px 3px seagreen;*/
+  text-decoration: line-through;
 }
 
-button:hover{
-  background-color: mediumaquamarine;
-}
-
-.comment{
-  border-bottom: 1px solid mediumaquamarine;
-  padding: 10px;
-}
-
-.comment-form{
-  margin: 0 auto;
-  width: 70%;
-}
-
-.comment-form input{
-  display: block;
-  margin: 20px 0;
-  padding: 10px;
-  width: 100%;
-}
-
-.comment-form input[type=submit]{
-  width: 100%;
-  padding: 10px;
-  margin 20px auto;
+div {
   text-align: center;
-  color: white;
-  font-size: 20px;
-  background-color: mediumaquamarine;
-  border-radius: 5px;
 }
 
-.countries-box{
-  
+
+.Top20Image:hover {
+  opacity: .6;
 }
